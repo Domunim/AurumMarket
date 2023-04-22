@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.Domain.Models
 {
-    public class AccountModel
+    public class AccountModel : DomainObjectModel
     {
-
-        public int Id { get; set; }
         public UserModel AccountHolder { get; set; }
         public double Balance { get; set; }
         public IEnumerable<TransactionModel> Transactions { get; set; }

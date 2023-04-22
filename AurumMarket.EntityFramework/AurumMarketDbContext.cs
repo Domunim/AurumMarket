@@ -8,17 +8,11 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.EntityFramework
 {
-    public class AurumMarketDbContext : Microsoft.EntityFrameworkCore.DbContext
-    {
+    public class AurumMarketDbContext : DbContext
+    {      
         public DbSet<UserModel> Users { get; set; }
         public DbSet<AccountModel> Accounts { get; set; }
         public DbSet<TransactionModel> Transactions { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-PUGRN1O\\SQLEXPRESS;Database=msdb;Trusted_Connection=True");
-
-            base.OnConfiguring(optionsBuilder);
-        }
+        public AurumMarketDbContext(DbContextOptions options) : base(options) { }
     }
 }

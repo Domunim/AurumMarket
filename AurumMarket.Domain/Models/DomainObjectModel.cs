@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.Domain.Models
 {
-    public class AssetModel : DomainObjectModel
+    public class DomainObjectModel
     {
-        public string Type { get; set; }
-        public double Price { get; set; }
+        public int Id { get; set; }
+
     }
 }
