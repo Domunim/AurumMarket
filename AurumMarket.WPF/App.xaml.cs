@@ -1,4 +1,5 @@
-﻿using AurumMarket.WPF.ViewModels;
+﻿using AurumMarket.MetalPriceAPI.Services;
+using AurumMarket.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,6 +17,9 @@ namespace AurumMarket.WPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            // test requrest
+            // new MetalIndexService().GetMetalIndex(Domain.Models.MetalIndexType.XAG).ContinueWith((task) => { var index = task.Result; });
+            
             Window window = new MainWindow();
             window.DataContext = new MainViewModel();
             window.Show();

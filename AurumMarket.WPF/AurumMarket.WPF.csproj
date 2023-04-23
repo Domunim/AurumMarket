@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AurumMarket.Domain\AurumMarket.Domain.csproj" />
     <ProjectReference Include="..\AurumMarket.EntityFramework\AurumMarket.EntityFramework.csproj" />
+    <ProjectReference Include="..\AurumMarket.MetalPriceAPI\AurumMarket.MetalPriceAPI.csproj" />
   </ItemGroup>
 
 </Project>
