@@ -6,18 +6,11 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.Domain.Models
 {
-
-    public enum MetalIndexType
-    {
-        XAG,
-        XAU
-    }
-
     public class MetalIndex
     {
-        public string Base { get; set; }
-        public string Name { get; set; }
-        public double RateEUR { get; set; }
+        public string Base { get; set; } = "USD";
+        public DateOnly Date { get; set; } // = DateOnly.FromDateTime(DateTime.Now);
+        public Dictionary<string, double> Rates { get; set; }
 
     }
 }

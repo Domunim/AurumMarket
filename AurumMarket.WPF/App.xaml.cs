@@ -17,6 +17,8 @@ namespace AurumMarket.WPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            
+            // TODO - test string
             // test requrest
             // new MetalIndexService().GetMetalIndex(Domain.Models.MetalIndexType.XAG).ContinueWith((task) => { var index = task.Result; });
             

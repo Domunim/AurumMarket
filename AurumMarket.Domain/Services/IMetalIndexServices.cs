@@ -9,6 +9,6 @@ namespace AurumMarket.Domain.Services
 {
     public interface IMetalIndexServices
     {
-        Task<MetalIndex> GetMetalIndex(MetalIndexType metalType);
+        Task<MetalIndex> GetMetalIndex();
     }
 }

@@ -1,4 +1,5 @@
-﻿using AurumMarket.WPF.State.Navigators;
+﻿using AurumMarket.MetalPriceAPI.Services;
+using AurumMarket.WPF.State.Navigators;
 using AurumMarket.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace AurumMarket.WPF.Commands
                 switch (viewType)
                 {
                     case ViewType.Home:
-                        _navigator.CurrentViewModel = new HomeViewModel();
+                        _navigator.CurrentViewModel = new HomeViewModel(MetalIndexViewModel.LoadMetalIndexViewModel(new MetalIndexService()));
                         break;
 
                     case ViewType.Assets:

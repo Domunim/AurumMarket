@@ -14,8 +14,14 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Aurum Market" Background="{StaticResource BrushPrimary2}"/>
-        <Grid Grid.Row="1" Background="{StaticResource BrushPrimary1}">
+        <TextBlock Grid.Row="0" Padding="10" FontSize ="28" Foreground="{StaticResource BrushText1}" Text="Aurum Market" Background="{StaticResource BrushPrimary2}"/>
+        
+        <Grid Grid.Row="1" RenderOptions.EdgeMode="Aliased" Background="{StaticResource BrushPrimary1}">
+
+            <Grid.Resources>
+                <Style TargetType="RadioButton" BasedOn="{StaticResource NavigationButton}"/>
+            </Grid.Resources>
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
