@@ -12,7 +12,7 @@ namespace AurumMarket.WPF.ViewModels
     public class MetalIndexViewModel
     {
         private readonly IMetalIndexServices _metalIndexServices;
-        public MetalIndex requestedIndex { get; set; }
+        public MetalIndexModel requestedIndex { get; set; }
 
         public MetalIndexViewModel(IMetalIndexServices metalIndexServices)
         {
@@ -28,7 +28,7 @@ namespace AurumMarket.WPF.ViewModels
 
         private async Task LoadMetalIndex()
         {
-            await _metalIndexServices.GetMetalIndex();
+            await _metalIndexServices.GetMetalIndexResponse();
         }
     }
 }

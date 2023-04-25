@@ -5,7 +5,7 @@
         
         <Setter Property="Foreground" Value="{StaticResource BrushText2}"/>
         
-        <Setter Property="Padding" Value="10 5"/>
+        <Setter Property="Padding" Value="20 10"/>
         
         <Setter Property="FontSize" Value="18"/>
 
@@ -14,7 +14,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
-                    
+
                     <Grid x:Name="gridMain" Background="{TemplateBinding Background}">
                         <TextBlock Text="{TemplateBinding Content}"
                                    Padding="{TemplateBinding Padding}"
@@ -25,10 +25,6 @@
 
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" Value="{StaticResource BrushPrimary1}" TargetName="gridMain"/>
-                            <!--
-                            TODO - change the font color
-                            <Setter Property="Foreground" Value="{StaticResource BrushText1}" TargetName="gridMain"/>
-                            -->
                         </Trigger>
                         
                     </ControlTemplate.Triggers>

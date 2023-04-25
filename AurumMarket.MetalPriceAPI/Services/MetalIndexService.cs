@@ -8,69 +8,92 @@ using AurumMarket.Domain.Models;
 using Newtonsoft.Json;
 using System.Diagnostics.Metrics;
 using System.Text.Json.Serialization;
+using System.Reflection;
+using System.ComponentModel.DataAnnotations;
 
 namespace AurumMarket.MetalPriceAPI.Services
 {
     public class MetalIndexService : IMetalIndexServices
     {
-        public async Task<MetalIndex> GetMetalIndex()
+        public async Task<ResponseModel> GetMetalIndexResponse()
         {
             using(HttpClient client = new HttpClient())
             {
 
-                // final version with editable dates and currencies
-                //string uri = "https://api.metalpriceapi.com/v1/" + GetSelectedDate(startDate, endDate) + "?api_key=a4117101fa426aed7f213da73ceb8099" + GetSelectedCurrencies(currencyCodes);
-
-                // NOTE - test version URI
-                string uri = "https://api.metalpriceapi.com/v1/latest?api_key=a4117101fa426aed7f213da73ceb8099";
-
+                // NOTE - final version with editable dates, below test from local file
+                //string uri = "https://api.metalpriceapi.com/v1/timeframe?api_key=a4117101fa426aed7f213da73ceb8099" + GetSelectedDate(startDate, endDate);
+                string uri = "C:\\Users\\User\\Desktop\\testAllCurrTwoDates.json";
 
                 HttpResponseMessage response = await client.GetAsync(uri);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                // TODO - if 2 different dates returned, create two models
-                //if (startDate != endDate)
-                //{
-                //    deserialise to 2 models
-                //}
-                //else
-
-                MetalIndex metalIndex = JsonConvert.DeserializeObject<MetalIndex>(jsonResponse);
+                ResponseModel modelFromAPI = JsonConvert.DeserializeObject<ResponseModel>(jsonResponse);
                 
-                return metalIndex;
+                return modelFromAPI;
             }
+        }
+
+
+        public MetalIndexModel ConvertToMetalIndex(ResponseModel modelfromAPI)
+        {
+
+            MetalIndexModel metalIndex = new();
+
+            metalIndex.Base = modelfromAPI.Base;
+            metalIndex.StartDate = DateOnly.Parse(modelfromAPI.StartDate);
+            metalIndex.EndDate = DateOnly.Parse(modelfromAPI.EndDate);
+            metalIndex.StartRates = ChangeToStringDoubleDictionary(ObjectToDictionary(modelfromAPI.Rates.StartDateRates));
+            metalIndex.EndRates = ChangeToStringDoubleDictionary(ObjectToDictionary(modelfromAPI.Rates.EndDateRates));
+            metalIndex.Change = CalculateRateChanges(metalIndex.StartRates, metalIndex.EndRates);
+
+            return metalIndex;
         }
 
         private string GetSelectedDate(DateOnly startDate, DateOnly endDate)
         {
-            string dateOutput = string.Empty;
-            
-            if (startDate == DateOnly.FromDateTime(DateTime.Now) && startDate == endDate)
-            {
-                return "latest";
-            }
-            else if (startDate == endDate)
-            {
-                return startDate.ToString("yyyy-MM-dd");
-            }
-            else
-            {
-                return $"timeframe?start_date={ startDate.ToString("yyyy-MM-dd") }&end_date={ endDate.ToString("yyyy-MM-dd") }"; 
-            }
-
+            return $"&start_date={ startDate.ToString("yyyy-MM-dd") }&end_date={ endDate.ToString("yyyy-MM-dd") }"; 
         }
 
-
-        private string GetSelectedCurrencies(List<string> currencyCodes)
+        public static Dictionary<string, object> ObjectToDictionary(object obj)
         {
-            string currencyOutput = "&currencies=";
+            Dictionary<string, object> returnedDict = new();
 
-            foreach (string currencyCode in currencyCodes)
+            foreach (PropertyInfo prop in obj.GetType().GetProperties())
             {
-                currencyOutput += currencyCode + ",";
+                string propName = prop.Name;
+                
+                var value = obj.GetType().GetProperty(propName).GetValue(obj, null);
+                
+                if (value != null)
+                {
+                    returnedDict.Add(propName, value);
+                }
+                else
+                {
+                    returnedDict.Add(propName, null);
+                }
             }
 
-            return currencyOutput.Remove(currencyOutput.Length - 1, 1);
+            return returnedDict;
+        }
+
+        public static Dictionary<string, double> ChangeToStringDoubleDictionary(Dictionary<string, object> dictionaryStrObj)
+        {
+            Dictionary<string, double> finalDict = new();
+
+            foreach (KeyValuePair<string, object> kvp in dictionaryStrObj)
+            {
+                finalDict.Add(kvp.Key, double.Parse(kvp.Value.ToString()));
+            }
+
+            return finalDict;
+        }
+
+        public static Dictionary<string, double> CalculateRateChanges(Dictionary<string, double> startRates, Dictionary<string, double> endRates)
+        {
+            Dictionary<string, double> rateChangesDict = startRates.ToDictionary(orig => orig.Key, orig => ((endRates[orig.Key] - orig.Value) / orig.Value * 100));
+             
+            return rateChangesDict;
         }
     }
 }
