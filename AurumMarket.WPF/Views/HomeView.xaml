@@ -16,8 +16,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Home Screen"/>
-                    <!-- TODO -    CONTINUE HERE!!     -->
-        <controls:MetalIndexCard Grid.Row="1" Margin="0 10" DataContext="{Binding MetalIndexViewModel}"/>
+                    <!-- TODO -    CONTINUE HERE!!    index to asset? asset bound to card -->
+        <controls:MetalIndexCard Grid.Row="1" Margin="0 10" HorizontalAlignment="Left" DataContext="{Binding MetalIndexViewModel.Gold}"/>
 
     </Grid>
 </UserControl>
