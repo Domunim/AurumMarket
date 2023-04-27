@@ -6,7 +6,7 @@ using AurumMarket.EntityFramework.Services;
 using System;
 using System.Globalization;
 
-IDataService<UserModel> userService = new GenericDataServices<UserModel>(new AurumMarketDbContextFactory());
+IDataServices<UserModel> userService = new GenericDataServices<UserModel>(new AurumMarketDbContextFactory());
 
 Console.WriteLine(userService.GetAll().Result.Count());
 

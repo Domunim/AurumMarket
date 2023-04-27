@@ -15,7 +15,7 @@ namespace AurumMarket.MetalPriceAPI.Services
 {
     public class MetalIndexService : IMetalIndexServices
     {
-        public async Task<ResponseModel> GetMetalIndexResponse()
+        public async Task<ResponseModel> GetResponseFromAPI()
         {
             using(HttpClient client = new HttpClient())
             {
@@ -28,25 +28,40 @@ namespace AurumMarket.MetalPriceAPI.Services
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
                 ResponseModel modelFromAPI = JsonConvert.DeserializeObject<ResponseModel>(jsonResponse);
-                
+
                 return modelFromAPI;
+               
             }
         }
 
+        // TODO - put below to AssetServices in Domain.Services
 
-        public MetalIndexModel ConvertToMetalIndex(ResponseModel modelfromAPI)
+        public PreciousMetalsListingViewModel ConvertToMetalIndex(ResponseModel modelfromAPI)
         {
 
-            MetalIndexModel metalIndex = new();
+            PreciousMetalsListingViewModel metalIndex = new();
 
             metalIndex.Base = modelfromAPI.Base;
             metalIndex.StartDate = DateOnly.Parse(modelfromAPI.StartDate);
             metalIndex.EndDate = DateOnly.Parse(modelfromAPI.EndDate);
             metalIndex.StartRates = ChangeToStringDoubleDictionary(ObjectToDictionary(modelfromAPI.Rates.StartDateRates));
             metalIndex.EndRates = ChangeToStringDoubleDictionary(ObjectToDictionary(modelfromAPI.Rates.EndDateRates));
-            metalIndex.Change = CalculateRateChanges(metalIndex.StartRates, metalIndex.EndRates);
+            metalIndex.Changes = CalculateRateChanges(metalIndex.StartRates, metalIndex.EndRates);
 
             return metalIndex;
+        }
+
+        public AssetModel MakeAssetFromIndex(PreciousMetalsListingViewModel metalIndex, AssetType type)
+        {
+            AssetModel assetModel = new();
+
+            assetModel.Type = type;
+            assetModel.Name = type.ToString();
+            assetModel.Symbol = assetModel.assetSymbols[type];
+            assetModel.Price = metalIndex.EndRates[assetModel.Symbol];
+            assetModel.Change = metalIndex.Changes[assetModel.Symbol];
+
+            return assetModel;
         }
 
         private string GetSelectedDate(DateOnly startDate, DateOnly endDate)
@@ -91,8 +106,11 @@ namespace AurumMarket.MetalPriceAPI.Services
 
         public static Dictionary<string, double> CalculateRateChanges(Dictionary<string, double> startRates, Dictionary<string, double> endRates)
         {
-            Dictionary<string, double> rateChangesDict = startRates.ToDictionary(orig => orig.Key, orig => ((endRates[orig.Key] - orig.Value) / orig.Value * 100));
-             
+            Dictionary<string, double> rateChangesDict = startRates.ToDictionary(orig => orig.Key, orig => (endRates[orig.Key] - orig.Value));
+
+            // Below version to calculate % change
+            // Dictionary<string, double> rateChangesDict = startRates.ToDictionary(orig => orig.Key, orig => ((endRates[orig.Key] - orig.Value) / orig.Value * 100));
+
             return rateChangesDict;
         }
     }

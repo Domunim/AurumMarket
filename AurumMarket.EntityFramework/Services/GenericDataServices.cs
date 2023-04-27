@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.EntityFramework.Services
 {
-    public class GenericDataServices<T> : IDataService<T> where T : DomainObjectModel
+    public class GenericDataServices<T> : IDataServices<T> where T : DomainObjectModel
     {
         private readonly AurumMarketDbContextFactory _contextFactory;
 

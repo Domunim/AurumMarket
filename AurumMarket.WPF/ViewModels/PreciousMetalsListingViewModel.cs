@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.WPF.ViewModels
 {
-    public class MetalIndexViewModel : ViewModelBase
+    public class PreciousMetalsListingViewModel : ViewModelBase
     {
         private readonly IMetalIndexServices _metalIndexServices;
 
-        private MetalIndexModel _gold;
+        private PreciousMetalsListingViewModel _gold;
 
-        public MetalIndexModel Gold
+        public PreciousMetalsListingViewModel Gold
         {
             get { return _gold; }
             set
@@ -25,9 +25,9 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        private MetalIndexModel _silver;
+        private PreciousMetalsListingViewModel _silver;
 
-        public MetalIndexModel Silver
+        public PreciousMetalsListingViewModel Silver
         {
             get { return _silver; }
             set
@@ -37,9 +37,9 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        private MetalIndexModel _platinum;
+        private PreciousMetalsListingViewModel _platinum;
 
-        public MetalIndexModel Platinum
+        public PreciousMetalsListingViewModel Platinum
         {
             get { return _platinum; }
             set
@@ -49,9 +49,9 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        private MetalIndexModel _palladium;
+        private PreciousMetalsListingViewModel _palladium;
 
-        public MetalIndexModel Palladium
+        public PreciousMetalsListingViewModel Palladium
         {
             get { return _palladium; }
             set
@@ -61,21 +61,30 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        public MetalIndexViewModel(IMetalIndexServices metalIndexServices)
+        public PreciousMetalsListingViewModel(IMetalIndexServices metalIndexServices)
         {
             _metalIndexServices = metalIndexServices;
         }
 
-        public static MetalIndexViewModel LoadMetalIndexViewModel(IMetalIndexServices metalIndexServices)
+        public static PreciousMetalsListingViewModel LoadMetalIndexViewModel(IMetalIndexServices metalIndexServices)
         {
-            MetalIndexViewModel metalIndexViewModel = new MetalIndexViewModel(metalIndexServices);
+            PreciousMetalsListingViewModel metalIndexViewModel = new PreciousMetalsListingViewModel(metalIndexServices);
             metalIndexViewModel.LoadMetalIndex();
+
+
+            //MakeAssetFromIndex(ConvertToMetalIndex(modelFromAPI), AssetType.Gold);
+            //MakeAssetFromIndex(ConvertToMetalIndex(modelFromAPI), AssetType.Silver);
+            //MakeAssetFromIndex(ConvertToMetalIndex(modelFromAPI), AssetType.Platinum);
+            //MakeAssetFromIndex(ConvertToMetalIndex(modelFromAPI), AssetType.Palladium);
+
+
             return metalIndexViewModel;
         }
 
         private async Task LoadMetalIndex()
         {
-            await _metalIndexServices.GetMetalIndexResponse();
+            await _metalIndexServices.GetResponseFromAPI();
         }
+
     }
 }

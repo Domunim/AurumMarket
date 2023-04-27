@@ -8,11 +8,11 @@ namespace AurumMarket.WPF.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-        public MetalIndexViewModel MetalIndexViewModel { get; set; }
+        public PreciousMetalsListingViewModel PreciousMetalsListingViewModel { get; set; }
 
-        public HomeViewModel(MetalIndexViewModel metalIndexViewModel)
+        public HomeViewModel(PreciousMetalsListingViewModel metalsViewModel)
         {
-            MetalIndexViewModel = metalIndexViewModel;
+            PreciousMetalsListingViewModel = metalsViewModel;
         }
 
     }

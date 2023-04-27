@@ -6,11 +6,32 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.Domain.Models
 {
+    
+    public enum AssetType
+    {
+        Gold,
+        Silver,
+        Platinum,
+        Palladium
+    }
+
     public class AssetModel : DomainObjectModel
     {
-        public string Symbol { get; set; }
         public string Name { get; set; }
+        public string Symbol { get; set; }
         public double Price { get; set; }
         public double Change { get; set; }
-    }
+        public AssetType Type { get; set; }
+
+
+        public readonly Dictionary<AssetType, string> assetSymbols = new()
+        {
+        {AssetType.Gold, "XAU"},
+        {AssetType.Silver, "XAG"},
+        {AssetType.Platinum, "XPT"},
+        {AssetType.Palladium, "XPD"},
+        };
+
+    };
+
 }

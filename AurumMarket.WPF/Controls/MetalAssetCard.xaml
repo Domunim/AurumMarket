@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="AurumMarket.WPF.Controls.MetalIndexCard"
+﻿<UserControl x:Class="AurumMarket.WPF.Controls.MetalAssetCard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,9 +15,9 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" FontSize="18" Text="{Binding Name}"/>
+                <TextBlock Grid.Row="0" FontSize="18" HorizontalAlignment="Center" Foreground="#E4E6EB" Text="{Binding Type, FallbackValue=Name}"/>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Margin="0 10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -27,11 +27,11 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Price"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Price, StringFormat={}{0:c}}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Foreground="#E4E6EB" Text="Price"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="5" Foreground="#E4E6EB" Text="{Binding Price, StringFormat={}{0:c}, FallbackValue=$0.00}"/>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Price"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Change, StringFormat={}{0:c}}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Foreground="#E4E6EB" HorizontalAlignment="Right" Text="Change"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Foreground="#E4E6EB" HorizontalAlignment="Right" Text="{Binding Change, StringFormat={}{0:c}, FallbackValue=$0.00}"/>
 
                 </Grid>
 

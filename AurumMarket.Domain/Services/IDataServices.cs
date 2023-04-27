@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.Domain.Services
 {
-    public interface IDataService<T>
+    public interface IDataServices<T>
     {
         Task<IEnumerable<T>> GetAll();
 

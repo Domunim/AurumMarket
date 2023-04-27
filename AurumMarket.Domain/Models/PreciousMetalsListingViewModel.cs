@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.Domain.Models
 {
-    public class MetalIndexModel
+    public class PreciousMetalsListingViewModel
     {
         public string Base { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
         public Dictionary<string, double> StartRates { get; set; }
         public Dictionary<string, double> EndRates { get; set; }
-        public Dictionary<string, double> Change { get; set; }
+        public Dictionary<string, double> Changes { get; set; }
 
     }
 }
