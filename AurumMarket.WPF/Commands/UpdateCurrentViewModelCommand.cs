@@ -39,7 +39,7 @@ namespace AurumMarket.WPF.Commands
                         break;
 
                     case ViewType.Assets:
-                        _navigator.CurrentViewModel = new AssetsViewModel();
+                        _navigator.CurrentViewModel = new YourAssetsViewModel();
                         break;
 
                     default:

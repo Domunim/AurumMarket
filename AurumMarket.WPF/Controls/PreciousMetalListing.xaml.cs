@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AurumMarket.WPF.Controls
 {
     /// <summary>
-    /// Interaction logic for MetalAssetListing.xaml
+    /// Interaction logic for PreciousMetalListing.xaml
     /// </summary>
-    public partial class MetalAssetListing : UserControl
+    public partial class PreciousMetalListing : UserControl
     {
-        public MetalAssetListing()
+        public PreciousMetalListing()
         {
             InitializeComponent();
         }

@@ -17,7 +17,7 @@
 
         <TextBlock Text="Home Screen"/>
 
-        <controls:MetalAssetListing Grid.Row="1" Margin="0 10" HorizontalAlignment="Center" DataContext="{Binding PreciousMetalsListingViewModel}"/>
+        <controls:PreciousMetalListing Grid.Row="1" Margin="0 10" HorizontalAlignment="Center" DataContext="{Binding PreciousMetalsListingViewModel}"/>
 
     </Grid>
 </UserControl>

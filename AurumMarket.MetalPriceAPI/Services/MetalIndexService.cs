@@ -22,7 +22,7 @@ namespace AurumMarket.MetalPriceAPI.Services
 
                 // NOTE - final version with editable dates, below test from local file
                 //string uri = "https://api.metalpriceapi.com/v1/timeframe?api_key=a4117101fa426aed7f213da73ceb8099" + GetSelectedDate(startDate, endDate);
-                string uri = "C:\\Users\\User\\Desktop\\testAllCurrTwoDates.json";
+                string uri = @"C:\Users\User\Desktop\testAllCurrTwoDates.json";
 
                 HttpResponseMessage response = await client.GetAsync(uri);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -34,12 +34,10 @@ namespace AurumMarket.MetalPriceAPI.Services
             }
         }
 
-        // TODO - put below to AssetServices in Domain.Services
-
-        public PreciousMetalsListingViewModel ConvertToMetalIndex(ResponseModel modelfromAPI)
+        public MetalIndexModel ConvertToMetalIndex(ResponseModel modelfromAPI)
         {
 
-            PreciousMetalsListingViewModel metalIndex = new();
+            MetalIndexModel metalIndex = new();
 
             metalIndex.Base = modelfromAPI.Base;
             metalIndex.StartDate = DateOnly.Parse(modelfromAPI.StartDate);
@@ -50,8 +48,8 @@ namespace AurumMarket.MetalPriceAPI.Services
 
             return metalIndex;
         }
-
-        public AssetModel MakeAssetFromIndex(PreciousMetalsListingViewModel metalIndex, AssetType type)
+         
+        public AssetModel MakeAssetFromIndex(MetalIndexModel metalIndex, AssetType type)
         {
             AssetModel assetModel = new();
 

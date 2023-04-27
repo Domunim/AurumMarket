@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.WPF.ViewModels
 {
-    public class AssetsViewModel : ViewModelBase
+    public class YourAssetsViewModel : ViewModelBase
     {
 
 

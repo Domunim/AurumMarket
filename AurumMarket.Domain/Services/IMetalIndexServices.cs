@@ -10,5 +10,9 @@ namespace AurumMarket.Domain.Services
     public interface IMetalIndexServices
     {
         Task<ResponseModel> GetResponseFromAPI();
+
+        MetalIndexModel ConvertToMetalIndex(ResponseModel modelfromAPI);
+
+        AssetModel MakeAssetFromIndex(MetalIndexModel metalIndex, AssetType type);
     }
 }

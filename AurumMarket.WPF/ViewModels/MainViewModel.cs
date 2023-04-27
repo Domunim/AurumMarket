@@ -11,5 +11,11 @@ namespace AurumMarket.WPF.ViewModels
     {
         public INavigator Navigator { get; set; } = new Navigator();
 
+
+        public MainViewModel()
+        {
+            Navigator.UpdateCurrentViewModelCommand.Execute(ViewType.Home);
+        }
+
     }
 }

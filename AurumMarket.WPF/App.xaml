@@ -18,7 +18,7 @@
                 <views:HomeView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewmodels:AssetsViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:YourAssetsViewModel}">
                 <views:AssetsView/>
             </DataTemplate>
 

@@ -1,5 +1,6 @@
 ﻿using AurumMarket.Domain.Models;
 using AurumMarket.Domain.Services;
+using AurumMarket.MetalPriceAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,9 @@ namespace AurumMarket.WPF.ViewModels
     {
         private readonly IMetalIndexServices _metalIndexServices;
 
-        private PreciousMetalsListingViewModel _gold;
+        private AssetModel _gold;
 
-        public PreciousMetalsListingViewModel Gold
+        public AssetModel Gold
         {
             get { return _gold; }
             set
@@ -25,9 +26,9 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        private PreciousMetalsListingViewModel _silver;
+        private AssetModel _silver;
 
-        public PreciousMetalsListingViewModel Silver
+        public AssetModel Silver
         {
             get { return _silver; }
             set
@@ -37,9 +38,9 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        private PreciousMetalsListingViewModel _platinum;
+        private AssetModel _platinum;
 
-        public PreciousMetalsListingViewModel Platinum
+        public AssetModel Platinum
         {
             get { return _platinum; }
             set
@@ -49,9 +50,9 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        private PreciousMetalsListingViewModel _palladium;
+        private AssetModel _palladium;
 
-        public PreciousMetalsListingViewModel Palladium
+        public AssetModel Palladium
         {
             get { return _palladium; }
             set
@@ -69,22 +70,18 @@ namespace AurumMarket.WPF.ViewModels
         public static PreciousMetalsListingViewModel LoadMetalIndexViewModel(IMetalIndexServices metalIndexServices)
         {
             PreciousMetalsListingViewModel metalIndexViewModel = new PreciousMetalsListingViewModel(metalIndexServices);
-            metalIndexViewModel.LoadMetalIndex();
-
-
-            //MakeAssetFromIndex(ConvertToMetalIndex(modelFromAPI), AssetType.Gold);
-            //MakeAssetFromIndex(ConvertToMetalIndex(modelFromAPI), AssetType.Silver);
-            //MakeAssetFromIndex(ConvertToMetalIndex(modelFromAPI), AssetType.Platinum);
-            //MakeAssetFromIndex(ConvertToMetalIndex(modelFromAPI), AssetType.Palladium);
-
-
+            metalIndexViewModel.LoadMetalIndex(metalIndexServices);
             return metalIndexViewModel;
         }
 
-        private async Task LoadMetalIndex()
-        {
-            await _metalIndexServices.GetResponseFromAPI();
-        }
+        private async Task LoadMetalIndex(IMetalIndexServices metalIndexServices)
+        {           
+            ResponseModel model = await _metalIndexServices.GetResponseFromAPI();
 
+            Gold = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Gold);
+            Silver = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Silver);
+            Platinum = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Platinum);
+            Palladium = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Palladium);
+        }
     }
 }

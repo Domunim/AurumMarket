@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AurumMarket.Domain.Models
 {
-    public class PreciousMetalsListingViewModel
+    public class MetalIndexModel : DomainObjectModel
     {
         public string Base { get; set; }
         public DateOnly StartDate { get; set; }
@@ -14,6 +14,5 @@ namespace AurumMarket.Domain.Models
         public Dictionary<string, double> StartRates { get; set; }
         public Dictionary<string, double> EndRates { get; set; }
         public Dictionary<string, double> Changes { get; set; }
-
     }
 }
