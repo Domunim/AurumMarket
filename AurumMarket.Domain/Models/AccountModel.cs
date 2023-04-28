@@ -10,7 +10,7 @@ namespace AurumMarket.Domain.Models
     {
         public UserModel AccountHolder { get; set; }
         public double Balance { get; set; }
-        public IEnumerable<TransactionModel> Transactions { get; set; }
+        public ICollection<TransactionModel> Transactions { get; set; }
 
     }
 }

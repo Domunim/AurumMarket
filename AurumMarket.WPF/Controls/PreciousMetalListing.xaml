@@ -13,7 +13,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" FontSize="18" Text="Precious metals" Foreground="#E4E6EB" />
+        <TextBlock Grid.Row="0" FontSize="18" Text="Current precious metal rates:" Foreground="#E4E6EB" />
 
         <Grid Grid.Row="1" Margin="0 10">
             <Grid.ColumnDefinitions>

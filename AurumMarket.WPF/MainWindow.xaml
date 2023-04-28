@@ -8,7 +8,7 @@
         xmlns:controls="clr-namespace:AurumMarket.WPF.Controls"
         
         mc:Ignorable="d"
-        Title="Aurum Market" Height="650" Width="900" Background="#15202B">
+        Title="Aurum Market" Height="650" Width="900" Background="#22303C">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

@@ -31,19 +31,19 @@
             </Grid.Resources>
             
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <RadioButton Grid.Column="0" Content="Home" IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConventer}, ConverterParameter={x:Type vm:HomeViewModel}}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Home}"/>
-            <RadioButton Grid.Column="1" Content="Your assets" IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConventer}, ConverterParameter={x:Type vm:YourAssetsViewModel}}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Assets}"/>
-            <RadioButton Grid.Column="2" Content="Buy"/>
-            <RadioButton Grid.Column="3" Content="Sell"/>
-            <RadioButton Grid.Column="4" Content="Profile"/>
+            <RadioButton Grid.Column="0" Content="Home" HorizontalContentAlignment="Center" IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConventer}, ConverterParameter={x:Type vm:HomeViewModel}}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Home}"/>
+            <RadioButton Grid.Column="1" Content="Your assets" HorizontalContentAlignment="Center" IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConventer}, ConverterParameter={x:Type vm:YourAssetsViewModel}}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Assets}"/>
+            <RadioButton Grid.Column="2" Content="Buy" HorizontalContentAlignment="Center"/>
+            <RadioButton Grid.Column="3" Content="Sell" HorizontalContentAlignment="Center"/>
+            <RadioButton Grid.Column="4" Content="Profile" HorizontalContentAlignment="Center"/>
 
         </Grid>
 

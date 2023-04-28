@@ -19,7 +19,7 @@ namespace AurumMarket.Domain.Models
     {
         public string Name { get; set; }
         public string Symbol { get; set; }
-        public double Price { get; set; }
+        public double PricePerKilogram { get; set; }
         public double Change { get; set; }
         public AssetType Type { get; set; }
 

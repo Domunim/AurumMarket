@@ -12,7 +12,7 @@ namespace AurumMarket.WPF.ViewModels
     {
         public virtual void Dispose() { }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {

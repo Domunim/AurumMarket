@@ -18,14 +18,15 @@ namespace AurumMarket.WPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            
-            //new MetalIndexService().GetResponseFromAPI().ContinueWith((task) => 
-                
+
+            // NOTE - test API call
+            //new MetalIndexService().GetResponseFromAPI().ContinueWith((task) =>
+
             //{
             //    var index = task.Result;
-            
+
             //});
-            
+
             Window window = new MainWindow();
             window.DataContext = new MainViewModel();
             window.Show();
