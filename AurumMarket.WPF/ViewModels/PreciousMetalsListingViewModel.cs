@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace AurumMarket.WPF.ViewModels
 {
     public class PreciousMetalsListingViewModel : ViewModelBase
     {
-        private readonly IMetalIndexServices _metalIndexServices;
+        private readonly AssetModelingServices _assetModeling;
 
         private AssetModel _gold;
 
@@ -62,26 +63,34 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        public PreciousMetalsListingViewModel(IMetalIndexServices metalIndexServices)
+        public PreciousMetalsListingViewModel(AssetModelingServices assetModeling) // parameter necessary?
         {
-            _metalIndexServices = metalIndexServices;
+            _assetModeling = assetModeling; // necessary?
         }
 
-        public static PreciousMetalsListingViewModel LoadMetalIndexViewModel(IMetalIndexServices metalIndexServices)
+        public static PreciousMetalsListingViewModel LoadMetalsViewModel() // the only reference, so must be left
         {
-            PreciousMetalsListingViewModel metalIndexViewModel = new PreciousMetalsListingViewModel(metalIndexServices);
-            metalIndexViewModel.LoadMetalIndex(metalIndexServices);
+            // TODO - pass in an existing assetModeling? where to create it with global access?
+
+            IMetalIndexServices metalIndexServices = new();
+
+            AssetModelingServices.LoadAssetModelData();
+
+            PreciousMetalsListingViewModel metalIndexViewModel = new();
+
+            metalIndexViewModel.LoadAssets();
+
             return metalIndexViewModel;
+
         }
 
-        private async Task LoadMetalIndex(IMetalIndexServices metalIndexServices)
-        {           
-            ResponseModel model = await _metalIndexServices.GetResponseFromAPI();
 
-            Gold = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Gold);
-            Silver = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Silver);
-            Platinum = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Platinum);
-            Palladium = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Palladium);
+        private void LoadAssets() // wire up to global AssetModeling somehow or LoadMetalIndex again, but not null
+        {           
+            Gold = _assetModeling.Gold;   // now it is self-referring, no sense
+            Silver = _assetModeling.Silver;
+            Platinum = _assetModeling.Platinum;
+            Palladium = _assetModeling.Palladium;
         }
     }
 }

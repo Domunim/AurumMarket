@@ -35,7 +35,7 @@ namespace AurumMarket.WPF.Commands
                 switch (viewType)
                 {
                     case ViewType.Home:
-                        _navigator.CurrentViewModel = new HomeViewModel(PreciousMetalsListingViewModel.LoadMetalIndexViewModel(new MetalIndexService()));
+                        _navigator.CurrentViewModel = new HomeViewModel(PreciousMetalsListingViewModel.LoadMetalsViewModel());
                         break;
 
                     case ViewType.Assets:

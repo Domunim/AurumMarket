@@ -9,6 +9,6 @@ namespace AurumMarket.Domain.Services.TransactionServices
 {
     public interface IBuyAssetService
     {
-         Task<AccountModel> BuyAsset(AccountModel buyer, string asset, int amount);
+         Task<AccountModel> BuyAsset(AccountModel buyer, string symbol, int amount);
     }
 }
