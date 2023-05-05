@@ -1,4 +1,5 @@
-﻿using AurumMarket.MetalPriceAPI.Services;
+﻿using AurumMarket.Domain.Services;
+using AurumMarket.MetalPriceAPI.Services;
 using AurumMarket.WPF.State.Navigators;
 using AurumMarket.WPF.ViewModels;
 using System;

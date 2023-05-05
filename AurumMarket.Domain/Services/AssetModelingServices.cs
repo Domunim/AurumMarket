@@ -65,7 +65,7 @@ namespace AurumMarket.Domain.Services
         {
             AssetModelingServices updatedAssets = new(metalIndexServices);
             updatedAssets.LoadMetalIndex(metalIndexServices);
-            return updatedAssets; // NOTE - refer to properties set below OR use updatedAssets in global context
+            return updatedAssets;
         }
 
 

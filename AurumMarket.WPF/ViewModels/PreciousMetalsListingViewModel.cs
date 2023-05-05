@@ -1,5 +1,6 @@
 ﻿using AurumMarket.Domain.Models;
 using AurumMarket.Domain.Services;
+using AurumMarket.Domain.Static;
 using AurumMarket.MetalPriceAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace AurumMarket.WPF.ViewModels
 {
     public class PreciousMetalsListingViewModel : ViewModelBase
     {
-        private readonly AssetModelingServices _assetModeling;
+        private readonly IMetalIndexServices _metalIndexServices;
 
         private AssetModel _gold;
 
@@ -63,34 +64,28 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        public PreciousMetalsListingViewModel(AssetModelingServices assetModeling) // parameter necessary?
+        public PreciousMetalsListingViewModel(IMetalIndexServices metalIndexServices)
         {
-            _assetModeling = assetModeling; // necessary?
+            _metalIndexServices = metalIndexServices;
         }
 
-        public static PreciousMetalsListingViewModel LoadMetalsViewModel() // the only reference, so must be left
+        public static PreciousMetalsListingViewModel LoadMetalsViewModel(IMetalIndexServices metalIndexServices)
         {
-            // TODO - pass in an existing assetModeling? where to create it with global access?
+            AssetModelingServices.LoadAssetModelData(metalIndexServices);
 
-            IMetalIndexServices metalIndexServices = new();
+            PreciousMetalsListingViewModel metalIndexViewModel = new(metalIndexServices);
 
-            AssetModelingServices.LoadAssetModelData();
-
-            PreciousMetalsListingViewModel metalIndexViewModel = new();
-
-            metalIndexViewModel.LoadAssets();
+            metalIndexViewModel.LoadAssetsFromBank();
 
             return metalIndexViewModel;
-
         }
 
-
-        private void LoadAssets() // wire up to global AssetModeling somehow or LoadMetalIndex again, but not null
+        private void LoadAssetsFromBank()
         {           
-            Gold = _assetModeling.Gold;   // now it is self-referring, no sense
-            Silver = _assetModeling.Silver;
-            Platinum = _assetModeling.Platinum;
-            Palladium = _assetModeling.Palladium;
+            Gold = AssetBank.Assets[0];
+            Silver = AssetBank.Assets[1];
+            Platinum = AssetBank.Assets[2];
+            Palladium = AssetBank.Assets[3];
         }
     }
 }
