@@ -2,6 +2,7 @@
 using AurumMarket.Domain.Services;
 using AurumMarket.Domain.Static;
 using AurumMarket.MetalPriceAPI.Services;
+using Azure.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,21 +65,36 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        public PreciousMetalsListingViewModel(IMetalIndexServices metalIndexServices)
+        public PreciousMetalsListingViewModel() //(IMetalIndexServices metalIndexServices)
         {
-            _metalIndexServices = metalIndexServices;
+            //_metalIndexServices = metalIndexServices;
         }
 
-        public static PreciousMetalsListingViewModel LoadMetalsViewModel(IMetalIndexServices metalIndexServices)
+        public static PreciousMetalsListingViewModel LoadMetalsViewModel()
         {
-            AssetModelingServices.LoadAssetModelData(metalIndexServices);
+            MetalIndexService service = new();
+            
+            AssetModelingServices.LoadAssetModelData(service);
 
-            PreciousMetalsListingViewModel metalIndexViewModel = new(metalIndexServices);
+            PreciousMetalsListingViewModel metalIndexViewModel = new();
 
             metalIndexViewModel.LoadAssetsFromBank();
 
             return metalIndexViewModel;
         }
+
+        // NOTE - below better version that require a parameter (problem in UpdateCurrentCommand)
+
+        //public static PreciousMetalsListingViewModel LoadMetalsViewModel(IMetalIndexServices metalIndexServices)
+        //{
+        //    AssetModelingServices.LoadAssetModelData(metalIndexServices);
+
+        //    PreciousMetalsListingViewModel metalIndexViewModel = new(metalIndexServices);
+
+        //    metalIndexViewModel.LoadAssetsFromBank();
+
+        //    return metalIndexViewModel;
+        //}
 
         private void LoadAssetsFromBank()
         {           

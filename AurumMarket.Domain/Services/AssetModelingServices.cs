@@ -68,8 +68,6 @@ namespace AurumMarket.Domain.Services
             return updatedAssets;
         }
 
-
-
         private async Task LoadMetalIndex(IMetalIndexServices metalIndexServices)
         {
             if (AssetBank.Assets == null)
@@ -81,6 +79,8 @@ namespace AurumMarket.Domain.Services
                 Platinum = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Platinum);
                 Palladium = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Palladium);
 
+                // Continues while properties are still empty!
+
                 AssetBank.Assets.Add(Gold);
                 AssetBank.Assets.Add(Silver);
                 AssetBank.Assets.Add(Platinum);
@@ -88,5 +88,22 @@ namespace AurumMarket.Domain.Services
             }
         }
 
+        //private async Task LoadMetalIndex(IMetalIndexServices metalIndexServices)
+        //{
+        //    if (AssetBank.Assets == null)
+        //    {
+        //        ResponseModel model = await _metalIndexServices.GetResponseFromAPI();
+
+        //        Gold = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Gold);
+        //        Silver = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Silver);
+        //        Platinum = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Platinum);
+        //        Palladium = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Palladium);
+
+        //        AssetBank.Assets.Add(Gold);
+        //        AssetBank.Assets.Add(Silver);
+        //        AssetBank.Assets.Add(Platinum);
+        //        AssetBank.Assets.Add(Palladium);
+        //    }
+        //}
     }
 }
