@@ -98,7 +98,7 @@ namespace AurumMarket.WPF.ViewModels
 
         private void LoadAssetsFromBank()
         {           
-            Gold = AssetBank.Assets[0];
+            Gold = AssetBank.Assets[0]; // NOTE - fails here, not waiting for the data to populate
             Silver = AssetBank.Assets[1];
             Platinum = AssetBank.Assets[2];
             Palladium = AssetBank.Assets[3];

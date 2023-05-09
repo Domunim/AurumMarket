@@ -65,6 +65,7 @@ namespace AurumMarket.Domain.Services
         {
             AssetModelingServices updatedAssets = new(metalIndexServices);
             updatedAssets.LoadMetalIndex(metalIndexServices);
+            PopulateAssetBank(updatedAssets);
             return updatedAssets;
         }
 
@@ -78,13 +79,17 @@ namespace AurumMarket.Domain.Services
                 Silver = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Silver);
                 Platinum = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Platinum);
                 Palladium = _metalIndexServices.MakeAssetFromIndex(metalIndexServices.ConvertToMetalIndex(model), AssetType.Palladium);
+            }
+        }
 
-                // Continues while properties are still empty!
-
-                AssetBank.Assets.Add(Gold);
-                AssetBank.Assets.Add(Silver);
-                AssetBank.Assets.Add(Platinum);
-                AssetBank.Assets.Add(Palladium);
+        private static async Task PopulateAssetBank(AssetModelingServices services)
+        {
+            if (AssetBank.Assets == null) // does not wait for the services to be populated
+            {
+                await Task.Run(() => AssetBank.Assets.Add(services.Gold));
+                await Task.Run(() => AssetBank.Assets.Add(services.Silver));
+                await Task.Run(() => AssetBank.Assets.Add(services.Platinum));
+                await Task.Run(() => AssetBank.Assets.Add(services.Palladium));
             }
         }
 
