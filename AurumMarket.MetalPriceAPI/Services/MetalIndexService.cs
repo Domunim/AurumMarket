@@ -103,7 +103,7 @@ namespace AurumMarket.MetalPriceAPI.Services
         public static Dictionary<string, double> CalculateRateChanges(Dictionary<string, double> startRates, Dictionary<string, double> endRates)
         {
             
-            // NOTE - version to calculate change in $
+            // version to calculate change in $
             Dictionary<string, double> rateChangesDict = startRates.ToDictionary(orig => orig.Key, orig => (1/ endRates[orig.Key] * 32.150746568628 - 1 / orig.Value * 32.150746568628));
 
             // NOTE - version to calculate % change

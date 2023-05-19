@@ -65,25 +65,57 @@ namespace AurumMarket.WPF.ViewModels
             }
         }
 
-        public PreciousMetalsListingViewModel() //(IMetalIndexServices metalIndexServices)
-        {
-            //_metalIndexServices = metalIndexServices;
-        }
+        public PreciousMetalsListingViewModel() {}
 
         public static PreciousMetalsListingViewModel LoadMetalsViewModel()
         {
-            MetalIndexService service = new();
-            
-            AssetModelingServices.LoadAssetModelData(service);
-
             PreciousMetalsListingViewModel metalIndexViewModel = new();
 
-            metalIndexViewModel.LoadAssetsFromBank();
+            metalIndexViewModel.UpdateMetalsViewModel();
 
             return metalIndexViewModel;
         }
 
-        // NOTE - below better version that require a parameter (problem in UpdateCurrentCommand)
+        public async Task UpdateMetalsViewModel()
+        {
+            MetalIndexService service = new();
+            PreciousMetalsListingViewModel metalIndexViewModel = new();
+            AssetModelingServices assetServices = new(service);
+
+            await assetServices.LoadAssetModelData(service);
+
+            await metalIndexViewModel.LoadAssetsFromBank(metalIndexViewModel);
+        }
+
+        private async Task LoadAssetsFromBank(PreciousMetalsListingViewModel metalIndexViewModel)
+        {
+            Gold = AssetBank.Assets[0];
+            Silver = AssetBank.Assets[1];
+            Platinum = AssetBank.Assets[2];
+            Palladium = AssetBank.Assets[3];
+        }
+
+        //public static PreciousMetalsListingViewModel LoadMetalsViewModel()
+        //{
+        //    MetalIndexService service = new();
+        //    PreciousMetalsListingViewModel metalIndexViewModel = new();
+        //    AssetModelingServices assetServices = new(service);
+
+        //    assetServices.LoadAssetModelData(service);
+
+        //    metalIndexViewModel.LoadAssetsFromBank();
+
+        //    return metalIndexViewModel;
+        //}
+
+
+
+        // NOTE - below better version that require a parameter (problem in UpdateCurrentCommand) and a ctor with parameter
+
+        //public PreciousMetalsListingViewModel(IMetalIndexServices metalIndexServices)
+        //{
+        //    _metalIndexServices = metalIndexServices;
+        //}
 
         //public static PreciousMetalsListingViewModel LoadMetalsViewModel(IMetalIndexServices metalIndexServices)
         //{
@@ -96,12 +128,12 @@ namespace AurumMarket.WPF.ViewModels
         //    return metalIndexViewModel;
         //}
 
-        private void LoadAssetsFromBank()
-        {           
-            Gold = AssetBank.Assets[0]; // NOTE - fails here, not waiting for the data to populate
-            Silver = AssetBank.Assets[1];
-            Platinum = AssetBank.Assets[2];
-            Palladium = AssetBank.Assets[3];
-        }
+        //private void LoadAssetsFromBank()
+        //{           
+        //    Gold = AssetBank.Assets[0];
+        //    Silver = AssetBank.Assets[1];
+        //    Platinum = AssetBank.Assets[2];
+        //    Palladium = AssetBank.Assets[3];
+        //}
     }
 }

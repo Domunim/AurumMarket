@@ -61,12 +61,11 @@ namespace AurumMarket.Domain.Services
             _metalIndexServices = metalIndexServices;
         }
 
-        public static AssetModelingServices LoadAssetModelData(IMetalIndexServices metalIndexServices)
+        public async Task LoadAssetModelData(IMetalIndexServices metalIndexServices)
         {
             AssetModelingServices updatedAssets = new(metalIndexServices);
-            updatedAssets.LoadMetalIndex(metalIndexServices);
-            PopulateAssetBank(updatedAssets);
-            return updatedAssets;
+            await updatedAssets.LoadMetalIndex(metalIndexServices);
+            await PopulateAssetBank(updatedAssets);
         }
 
         private async Task LoadMetalIndex(IMetalIndexServices metalIndexServices)
@@ -82,16 +81,39 @@ namespace AurumMarket.Domain.Services
             }
         }
 
-        private static async Task PopulateAssetBank(AssetModelingServices services)
+        private async Task PopulateAssetBank(AssetModelingServices services)
         {
-            if (AssetBank.Assets == null) // does not wait for the services to be populated
+            if (AssetBank.Assets == null)
             {
-                await Task.Run(() => AssetBank.Assets.Add(services.Gold));
-                await Task.Run(() => AssetBank.Assets.Add(services.Silver));
-                await Task.Run(() => AssetBank.Assets.Add(services.Platinum));
-                await Task.Run(() => AssetBank.Assets.Add(services.Palladium));
+                AssetBank.Assets.Add(services.Gold);
+                AssetBank.Assets.Add(services.Silver);
+                AssetBank.Assets.Add(services.Platinum);
+                AssetBank.Assets.Add(services.Palladium);
             }
         }
+
+        // working, not async
+        //private static AssetModelingServices PopulateAssetBank(AssetModelingServices services)
+        //{
+        //    if (AssetBank.Assets == null)
+        //    {
+        //        AssetBank.Assets.Add(services.Gold);
+        //        AssetBank.Assets.Add(services.Silver);
+        //        AssetBank.Assets.Add(services.Platinum);
+        //        AssetBank.Assets.Add(services.Palladium);
+        //    }
+        //    return services;
+
+        //}
+
+        // working sync version
+        //public static AssetModelingServices LoadAssetModelData(IMetalIndexServices metalIndexServices)
+        //{
+        //    AssetModelingServices updatedAssets = new(metalIndexServices);
+        //    updatedAssets.LoadMetalIndex(metalIndexServices);
+        //    PopulateAssetBank(updatedAssets);
+        //    return updatedAssets;
+        //}
 
         //private async Task LoadMetalIndex(IMetalIndexServices metalIndexServices)
         //{
